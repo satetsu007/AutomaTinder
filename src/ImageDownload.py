@@ -17,9 +17,21 @@ import tkinter
 def GUI():
     root = tkinter.Tk()
     root.title("ImageDownloader")
+    root.geometry("400x300")
+
+    # ラベル
+    Static1 = tkinter.Label(text="ImageDownload")
+    Static1.pack()
+
+    #エントリー
+    EditBox = tkinter.Entry()
+    EditBox.insert(tkinter.END,"女優名を入力してね")
+    EditBox.pack()
+
+    #ここで，valueにEntryの中身が入る
+    value = EditBox.get()
+    actless = value
     root.mainloop()
-    # 女優名を格納する
-    actless = [""]
 
 def main():
     GUI()
