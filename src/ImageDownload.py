@@ -33,8 +33,31 @@ def GUI():
     actless = value
     root.mainloop()
 
+def CUI():
+    while True:
+        print("-"*20)
+        print("")
+        keyword = set_keyword()
+        ImageDownload(keyword)
+        print("")
+        print("")
+
+def ImageDownload(keyword, numImages=100):
+    idown = ImageDownloader(keyword, numImages)
+    path = "./data/{}".format(keyword)
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    idown.download("./data")
+
+def set_keyword():
+    print("-----{}-----".format("Image Downloader"))
+    print("Input keyword: ", end="")
+    keyword = input()
+    return keyword
+
 def main():
-    GUI()
+    #GUI()
+    CUI()
 
 if __name__ == "__main__":
     main()
