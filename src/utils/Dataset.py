@@ -24,7 +24,10 @@ class Dataset():
             input_path: pickleが保存されているパスを指定
         """
         with open(input_path, mode="rb") as f:
-            self = pickle.load(input_path)
+            tmp = pickle.load(f)
+        self.X = tmp.X
+        self.y = tmp.y
+        self.path = tmp.path
 
     def set_data(self, X, y, path=None):
         """
@@ -37,13 +40,13 @@ class Dataset():
         self.y = y
         self.path = path
 
-    def split_data(self, ratio):
+    def split_data(self, ratio=0.2):
         """
         学習データとテストデータに分ける
         Arguments:
             ratio: テストデータの割合
         """
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y)
+        self.X_train, self.X_test, self.y_train, self.y_test, self.path_train, self.path_test = train_test_split(self.X, self.y, self.path, test_size=ratio)
 
     def to_pickle(self, output_path):
         """
