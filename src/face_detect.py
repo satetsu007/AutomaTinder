@@ -26,22 +26,18 @@ def face_detect(height, width, ratio):
                 os.mkdir(to_name_path)
             for name in tqdm([name for name in os.listdir(name_path) if name!=".DS_Store"], desc=folder, leave=False):
                 img_path = "{}/{}".format(name_path, name)
-                to_img_path = img_path.replace("org", "detect")
+                #to_img_path = "{}/{}_{}".format(name_path, i, name).replace("org", "detect")
                 img = cv2.imread(img_path)
                 try:
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                 except:
                     continue
                 faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-                for (x,y,w,h) in tqdm(faces, desc="face", leave=False):
-                    #try:
-                        #detect_img = img[int(y-h*ratio):int(y+h*(1+ratio)), int(x-w*ratio):int(x+w*(1+ratio)), :]
+                for i, (x,y,w,h) in tqdm(enumerate(faces), desc="face", leave=False):
+                    to_img_path = "{}/{}_{}".format(name_path, i, name).replace("org", "detect")
                     detect_img = FaceCrop(img, ratio, x, y, w, h)
-                    #print(detect_img.shape())
                     dst = cv2.resize(detect_img, dsize=(height, width))
                     cv2.imwrite(to_img_path, dst)
-                    #except:
-                    #    continue
 
 def FaceCrop(img, ratio, x, y, w, h):
     """検出した顔を画像の中から切り出す
