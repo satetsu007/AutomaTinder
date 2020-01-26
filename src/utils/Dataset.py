@@ -5,26 +5,28 @@ import pickle
 from sklearn.model_selection import train_test_split
 
 class Dataset():
-    def __init__(self, X=None, y=None):
+    def __init__(self, X=None, y=None, path = None):
         """
         機械学習データセット
         Arguments:
-            X {[type]} -- [description]
-            y {[type]} -- [description]
+            X: 説明変数
+            y: 目的変数
+            path: ファイルパス
         """
         self.X = X
         self.y = y
+        self.path = path
 
     def read_pickle(self, input_path):
         """
         pickle形式のデータセットを読み込む
         Arguments:
-            input_path {[type]} -- [description]
+            input_path: pickleが保存されているパスを指定
         """
         with open(input_path, mode="rb") as f:
             self = pickle.load(input_path)
 
-    def set_data(self, X, y):
+    def set_data(self, X, y, path=None):
         """
         機械学習データセットを設定する
         Arguments:
@@ -33,6 +35,7 @@ class Dataset():
         """
         self.X = X
         self.y = y
+        self.path = path
 
     def split_data(self, ratio):
         """
@@ -46,7 +49,7 @@ class Dataset():
         """
         データセットをpickle形式で保存する
         Arguments:
-            output_path: 保存するパス・ファイル名を指定
+            output_path: pickleを保存するパスを指定
         """
         with open(output_path, mode="wb") as f:
             pickle.dump(self, f)
