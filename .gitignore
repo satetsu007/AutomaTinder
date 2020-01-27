@@ -2,3 +2,4 @@
 data/*
 models/xml/*
 ipynb/.ipynb_checkpoints/*
+src/utils/__pycache__/
